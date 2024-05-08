@@ -86,7 +86,8 @@ public class SampleShawnMendesServerProxy {
                 .scheme("http")
                 .host(url)
                 .port(port)
-                .path("/shawn/songs/" + id);
+                .path("/shawn/songs")
+                .queryParam("id", id);
         try {
             ResponseEntity<String> response = restTemplate.exchange(
                     builder.build().toUri(),
