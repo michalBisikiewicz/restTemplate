@@ -3,6 +3,8 @@ package com.example.resttemplate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -31,11 +33,15 @@ public class SampleShawnMendesServerProxy {
                 .host(url)
                 .port(port)
                 .path("/shawn/songs");
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("requestId", "headerValue");
+        SampleShawnMendesRequest requestBody = new SampleShawnMendesRequest("hahahah123");
+        HttpEntity<SampleShawnMendesRequest> httpEntity = new HttpEntity<>(requestBody, httpHeaders);
         try {
             ResponseEntity<String> response = restTemplate.exchange(
                     builder.build().toUri(),
-                    HttpMethod.GET,
-                    null,
+                    HttpMethod.POST,
+                    httpEntity,
                     String.class
             );
             return response.getBody();
